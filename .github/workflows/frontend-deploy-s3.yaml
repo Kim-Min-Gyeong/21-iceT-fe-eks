@@ -22,18 +22,10 @@ jobs:
       - name: Generate .env file for Vite (based on branch)
         run: |
           echo "[FRONTEND] Generating .env file for branch: ${{ github.ref_name }}"
-          
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            echo "VITE_IS_QA=prod" >> .env
-            echo "VITE_API_BASE_URL=https://ktbkoco.com/" >> .env
-            echo "VITE_REDIRECT_URL=https://ktbkoco.com/oauth/kakao/callback" >> .env
-            echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
-          else
-            echo "VITE_IS_QA=dev" >> .env
-            echo "VITE_API_BASE_URL=https://koco.click/" >> .env
-            echo "VITE_REDIRECT_URL=https://koco.click/oauth/kakao/callback" >> .env
-            echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
-          fi
+          echo "VITE_IS_QA=prod" >> .env
+          echo "VITE_API_BASE_URL=https://koco-test.click/" >> .env
+          echo "VITE_REDIRECT_URL=https://koco-test.click/oauth/kakao/callback" >> .env
+          echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
 
       - name: Build React App
         run: npm run build
@@ -42,7 +34,7 @@ jobs:
         run: |
           # 브랜치에 따라 호스팅용 S3 버킷 결정
           if [ "${{ github.ref_name }}" = "main" ]; then
-            BUCKET="prod-koco-front-s3"
+            BUCKET="eks-test-koco-front-s3"
           else
             BUCKET="dev-koco-front-s3"
           fi
@@ -52,31 +44,10 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "ap-northeast-2"
-
-      - name: Archive build to versioned S3 bucket
-        run: |
-          TIMESTAMP=$(TZ=Asia/Seoul date +%Y%m%d-%H%M%S)
-          # 브랜치에 따라 백업용 S3 버킷 결정
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            BACKUP_BUCKET="prod-koco-frontend-backup"
-          else
-            BACKUP_BUCKET="dev-koco-frontend-backup"
-          fi
-          echo "[FRONTEND] Archiving ./dist → s3://$BACKUP_BUCKET/$TIMESTAMP/"
-          aws s3 sync ./dist s3://$BACKUP_BUCKET/$TIMESTAMP/
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "ap-northeast-2"
-
+          
       - name: Invalidate CloudFront cache
         run: |
-          # 도메인도 브랜치별로 분기 (예시 그대로)
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            DOMAIN="ktbkoco.com"
-          else
-            DOMAIN="koco.click"
-          fi
+          DOMAIN="koco-test.click"
 
           DIST_ID=$(aws cloudfront list-distributions \
             --query "DistributionList.Items[?Aliases.Items[?contains(@, '$DOMAIN')]].Id" \
