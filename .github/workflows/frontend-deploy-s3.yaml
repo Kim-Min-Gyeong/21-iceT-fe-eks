@@ -32,12 +32,7 @@ jobs:
 
       - name: Deploy to Static Hosting S3
         run: |
-          # 브랜치에 따라 호스팅용 S3 버킷 결정
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            BUCKET="eks-test-koco-front-s3"
-          else
-            BUCKET="dev-koco-front-s3"
-          fi
+          BUCKET="eks-test-koco-front-s3"
           echo "[FRONTEND] Syncing ./dist → s3://$BUCKET"
           aws s3 sync ./dist s3://$BUCKET --delete
         env:
