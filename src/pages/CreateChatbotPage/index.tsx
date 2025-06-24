@@ -54,12 +54,8 @@ const CreateChatbotPage = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       alert('AI 챗봇이 시작되었습니다!');
-      if (selectedMode === '라이브 코딩 면접 대비') {
-        navigate('/chatbot-interview');
-      }
-      if (selectedMode === '내 코드 피드백') {
-        navigate('/chatbot-feedback');
-      }
+
+      navigate('/chatbot', { state: { mode: selectedMode } });
     } catch {
       alert('백준에 존재하지 않는 문제 번호입니다.');
     } finally {
