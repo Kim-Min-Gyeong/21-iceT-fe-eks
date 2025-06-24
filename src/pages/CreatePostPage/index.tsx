@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CreatePostPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+
   const createPostMutation = useCreatePost();
   const navigate = useNavigate();
 
