@@ -1,5 +1,6 @@
 import useInput from '@/shared/hooks/useInput';
 import useSubmitButton from '@/shared/hooks/useSubmitButton';
+import BottomNav from '@/shared/layout/BottomNav';
 import PageHeader from '@/shared/layout/PageHeader';
 import Button from '@/shared/ui/Button';
 import { useMemo, useState } from 'react';
@@ -61,7 +62,7 @@ const CreateChatbotPage = () => {
   return (
     <div className="bg-background min-h-screen relative">
       <PageHeader title="챗봇" />
-      <div className="px-4 space-y-6">
+      <div className="px-4 space-y-6 mb-6">
         {/* 문제 번호 섹션 */}
         <div>
           <div className="flex items-center gap-3 mb-3">
@@ -154,6 +155,7 @@ const CreateChatbotPage = () => {
           </Button>
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 };
