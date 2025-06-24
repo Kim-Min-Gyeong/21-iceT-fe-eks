@@ -48,7 +48,7 @@ const PostMeta = (data: IPostMetaProps) => {
 
   return (
     <div className="border-b-[2px] border-border">
-      <p className="text-sm">백준 {data.problemNumber}번 문제</p>
+      <p className="text-sm mb-1">| 백준 {data.problemNumber}번</p>
       <div className="flex justify-between">
         <h2 className="text-2xl font-bold text-text-primary mb-4">{data.title}</h2>
         <div className="relative">
