@@ -3,7 +3,7 @@ import useInput from '@/shared/hooks/useInput';
 import BottomNav from '@/shared/layout/BottomNav';
 import PageHeader from '@/shared/layout/PageHeader';
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const tempMessages = [
   {
@@ -42,6 +42,7 @@ int main(void) {
 const ChattingPage = () => {
   const [messages, setMessages] = useState(tempMessages);
   const { value: inputMessage, onChange, reset } = useInput();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mode = useLocation().state?.mode;
@@ -91,7 +92,15 @@ const ChattingPage = () => {
     <div className="bg-background min-h-screen flex flex-col">
       {/* 헤더 */}
       <div className="flex-shrink-0">
-        <PageHeader title={mode} />
+        <div className="flex items-center justify-between">
+          <PageHeader title={mode} />
+          <button
+            onClick={() => navigate('/chat-sessions')}
+            className="text-sm text-blue-600 hover:text-blue-800 transition-colors px-4"
+          >
+            과거 대화 이력 보기
+          </button>
+        </div>
       </div>
 
       {/* 채팅 영역 - 스크롤 가능 */}
