@@ -59,15 +59,15 @@ const ProblemSolutionSection = ({
   return (
     <section className="max-w-2xl mx-auto p-6 bg-surface rounded-lg shadow-md space-y-6 mb-30">
       <h2 className="text-xl font-bold mb-4">| 문제 요약</h2>
-      <p className="whitespace-pre-line break-words overflow-wrap-anywhere">
+      <p className="whitespace-pre-line break-words overflow-wrap-anywhere  leading-loose">
         {formatCode(problemCheck)}
       </p>
       <h2 className="text-xl font-bold mb-4 ">| 알고리즘</h2>
-      <p className="whitespace-pre-line break-words overflow-wrap-anywhere">
+      <p className="whitespace-pre-line break-words overflow-wrap-anywhere  leading-loose">
         {formatCode(algorithm)}
       </p>
       <h2 className="text-xl font-bold mb-4">| 풀이</h2>
-      <p className="whitespace-pre-line break-words overflow-wrap-anywhere">
+      <p className="whitespace-pre-line break-words overflow-wrap-anywhere leading-loose">
         {formatProblemSolving(problemSolving)}
       </p>
       <div>

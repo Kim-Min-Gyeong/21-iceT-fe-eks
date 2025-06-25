@@ -67,7 +67,7 @@ const ProblemSolutionSection = ({
         {formatCode(algorithm)}
       </p>
       <h2 className="text-xl font-bold mb-4">| 풀이</h2>
-      <p className="whitespace-pre-line break-words overflow-wrap-anywhere">
+      <p className="whitespace-pre-line break-words overflow-wrap-anywhere leading-relaxed">
         {formatProblemSolving(problemSolving)}
       </p>
       <div>
