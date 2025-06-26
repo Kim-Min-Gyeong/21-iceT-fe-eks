@@ -85,7 +85,8 @@ const PostForm = ({
   // 마크다운 유효성 검사
   const markdownErr = useMemo(() => {
     if (!content) return '내용을 입력해주세요';
-    if (content.length < 1 || content.length > 3000) return '게시글은 최대 3000자 작성 가능합니다';
+    if (content.length < 1 || content.length > 10000)
+      return '게시글은 최대 10,000자까지 작성 가능합니다';
 
     return null;
   }, [content]);
