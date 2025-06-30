@@ -24,7 +24,7 @@ jobs:
           echo "[FRONTEND] Generating .env file for branch: ${{ github.ref_name }}"
           echo "VITE_IS_QA=prod" >> .env
           echo "VITE_API_BASE_URL=https://koco-test.click/" >> .env
-          echo "VITE_REDIRECT_URL=https://koco-test.click/oauth/kakao/callback" >> .env
+          echo "VITE_REDIRECT_URL=https://koco-test.click/api/backend/v1/auth/callback" >> .env
           echo "VITE_KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }}" >> .env
 
       - name: Build React App
